@@ -14,9 +14,11 @@ exports.createCategory = function(req, res) {
 				res.send({categoryName: category.categoryName, categoryId:category.categoryId});
 			} else {
 				// TODO: Need to implement status codes
-				res.send({error : error});
+				res.status(500).send({error : error});
 			}
 		}, category);
+	} else {
+		res.status(400).send("Missing fields!!!");
 	}
 };
 
@@ -26,7 +28,7 @@ exports.getCategories = function(req, res) {
 			res.send({categories: results});
 		} else {
 			// TODO: Need to implement status codes
-			res.send({error : error});
+			res.status(500).send({error : error});
 		}
 	});
 };
@@ -34,13 +36,18 @@ exports.getCategories = function(req, res) {
 
 exports.getCategory = function(req, res) {
 	var category = [];
-	category.categoryId = req.body[constants.CATEGORY_ID]
+	category.categoryId = req.params.categoryId;
 	categorydb.selectCategoryById(function(results, error) {
 		if(error == null) {
-			res.send({categories: results});
+			if(results.length > 0) {
+				//category.categoryName = results[0].categoryName;
+				res.send(results[0]);
+			} else {
+				res.send({error : "No category found!!!"});
+			}
 		} else {
 			// TODO: Need to implement status codes
-			res.send({error : error});
+			res.status(500).send({error : error});
 		}
 	}, category);
 };

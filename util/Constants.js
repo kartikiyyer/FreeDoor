@@ -18,3 +18,12 @@ exports.USER_ID = "userId";
 
 exports.CATEGORY_NAME = "categoryName";
 exports.CATEGORY_ID = "categoryId";
+
+exports.PRODUCT_NAME = "productName";
+exports.QUANTITY = "quantity";
+exports.EXPECTED_OFFER = "expectedOffer";
+exports.PRODUCT_DESC = "productDesc";
+exports.PRODUCT_EXPIRY_DATE = "productExpiryDate";
+exports.IS_VALID = "isValid";
+exports.LAST_UPDATED = "lastUpdated";
+exports.PRODUCT_ID = "productId";

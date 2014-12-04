@@ -44,7 +44,7 @@ exports.selectCategories = selectCategories;
 
 function selectCategoryById(callback, category) {
 	var connection = mysql.createdbConnection();
-	connection.query("SELECT categoryName FROM category WHERE categoryId  = ?",[category.categoryId], function(error, results) {
+	connection.query("SELECT categoryId, categoryName FROM category WHERE categoryId  = ?",[category.categoryId], function(error, results) {
 		if(!error) {
 			//console.log(results);
 			if(results.length !== 0) {

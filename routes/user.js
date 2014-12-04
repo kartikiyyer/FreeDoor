@@ -20,7 +20,7 @@ exports.createUser = function(req, res) {
 	if(user.firstName != "" && user.lastName != "" && user.email != "" && user.mobile != "" && !isNaN(user.mobile)) {
 		userdb.checkUserByEmail(function(results, error) {
 			if(error === null) {
-				if(results.length !== 0) {
+				if(results.length > 0) {
 					res.send({error: "Duplicate user!!!"});
 				} else {
 					userdb.insertUser(function(results, error) {
@@ -34,11 +34,11 @@ exports.createUser = function(req, res) {
 					}, user);
 				}
 			} else {
-				res.send({error : error});
+				res.status(500).send({error : error});
 			}
 		}, user);
 	} else {
-		res.send({error : "One of the fields is empty!!!"});
+		res.status(400).send("Missing fields!!!");
 	}
 };
 
@@ -50,7 +50,7 @@ exports.getUser = function(req, res) {
 	if(userId !== "") {
 		userdb.selectUserById(function(results, error) {
 			if(error === null) {
-				if(results.length !== 0) {
+				if(results.length > 0) {
 					user.firstName = results[0].firstName;
 					user.lastName = results[0].lastName;
 					user.email = results[0].emaild;
@@ -60,7 +60,7 @@ exports.getUser = function(req, res) {
 					res.send({error: "No user present with userId: " + user.userId});
 				}
 			} else {
-				res.send({error : error});
+				res.status(500).send({error : error});
 			}
 		}, user);
 	}
