@@ -40,6 +40,24 @@ function selectProductById(callback, product) {
 
 exports.selectProductById = selectProductById;
 
+function selectProducts(callback) {
+	var connection = mysql.createdbConnection();
+	connection.query("SELECT * FROM product WHERE isValid = 1", function(error, results) {
+		if(!error) {
+			//console.log(results);
+			if(results.length !== 0) {
+				console.log("Product details selected");
+			}
+		} else {
+			console.log(error);
+		}
+		callback(results, error);
+	});
+	mysql.closedbConnection(connection);
+}
+
+exports.selectProducts = selectProducts;
+
 function editProduct(callback, product) {
 	var connection = mysql.createdbConnection();
 	connection.query("UPDATE product SET productName = ?, quantity = ?, expectedOffer = ?, productDesc = ?, productExpiryDate = ?, isValid = ? , categoryId = ?, lastUpdated = ? WHERE userId = ? AND productId  = ?", [product.productName, product.quantity, product.expectedOffer, product.productDesc, product.productExpiryDate, product.isValid, product.categoryId, product.lastUpdated, product.userId, product.productId],function(error, results) {
@@ -75,3 +93,21 @@ function deleteProductById(callback, product) {
 }
 
 exports.deleteProductById = deleteProductById;
+
+function softDeleteProductById(callback, product) {
+	var connection = mysql.createdbConnection();
+	connection.query("UPDATE product SET isValid = 0 AND lastUpdated = ? WHERE productId  = ?",[product.lastUpdated, product.productId], function(error, results) {
+		if(!error) {
+			//console.log(results);
+			if(results.length !== 0) {
+				console.log("Product details unlisted for " + product.productId);
+			}
+		} else {
+			console.log(error);
+		}
+		callback(results, error);
+	});
+	mysql.closedbConnection(connection);
+}
+
+exports.softDeleteProductById = softDeleteProductById;

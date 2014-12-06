@@ -8,10 +8,12 @@ var routes = require('./routes');
 var user = require('./routes/User');
 var category = require('./routes/Category');
 var product = require('./routes/Product');
+var comment = require('./routes/Comment');
+var offer = require('./routes/Offer');
 var http = require('http');
 var path = require('path');
 var mysql = require("./util/MySQLConnection");
-mysql.createdbConnectionPool();
+//mysql.createdbConnectionPool();
 var app = express();
 
 // all environments
@@ -42,9 +44,19 @@ app.post('/category', category.createCategory);
 app.get('/category/:categoryId', category.getCategory);
 
 app.post('/category/:categoryId/product', product.createProduct);
+app.get('/category/:categoryId/product', product.getProducts);
 app.get('/category/:categoryId/product/:productId', product.getProduct);
 app.put('/category/:categoryId/product/:productId', product.updateProduct);
 app.delete('/category/:categoryId/product/:productId', product.removeProduct);
+
+
+app.post('/category/:categoryId/product/:productId/offer', offer.createOffer);
+app.get('/category/:categoryId/product/:productId/offer', offer.getOffers);
+app.get('/category/:categoryId/product/:productId/offer/:offerId', offer.getOffer);
+app.put('/category/:categoryId/product/:productId/offer/:offerId', offer.updateOffer);
+app.delete('/category/:categoryId/product/:productId/offer/:offerId', offer.removeOffer);
+
+app.post('/category/:categoryId/product/:productId/offer/:offerId/comment', comment.createComment);
 
 
 http.createServer(app).listen(app.get('port'), function(){

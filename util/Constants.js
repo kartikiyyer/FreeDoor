@@ -27,3 +27,16 @@ exports.PRODUCT_EXPIRY_DATE = "productExpiryDate";
 exports.IS_VALID = "isValid";
 exports.LAST_UPDATED = "lastUpdated";
 exports.PRODUCT_ID = "productId";
+
+exports.BUYING_QTY = "buyingQty";
+exports.OFFERED_DETAILS = "offeredDetails";
+exports.BUYER_STATUS = "buyerStatus";
+exports.SELLER_STATUS = "sellerStatus";
+exports.OFFER_EXPIRY = "offerExpiry";
+exports.BUYER_ID = "buyerId";
+exports.COMMENTS = "comments";
+exports.OFFER_ID = "offerId";
+
+exports.COMMENT_DESC = "comment";
+exports.LAST_MODIFIED = "lastModified";
+

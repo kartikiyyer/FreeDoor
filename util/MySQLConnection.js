@@ -4,8 +4,8 @@
 
 var constants = require('./Constants');
 
-//var enableConnectionPool = false;
-var enableConnectionPool = true;
+var enableConnectionPool = false;
+//var enableConnectionPool = true;
 
 function createdbConnection() {
 	if(enableConnectionPool) {

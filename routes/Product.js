@@ -14,9 +14,9 @@ exports.createProduct = function(req, res) {
 	product.productExpiryDate = req.body[constants.PRODUCT_EXPIRY_DATE];
 	product.isValid = req.body[constants.IS_VALID];
 	product.categoryId = req.body[constants.CATEGORY_ID];
-	//var date = new Date();
-	//product.lastUpdated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
-	product.lastUpdated = req.body[constants.LAST_UPDATED];
+	var date = new Date();
+	product.lastUpdated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
+	//product.lastUpdated = req.body[constants.LAST_UPDATED];
 	if(product.productName != "") {
 		productdb.insertProduct(function(results, error) {
 			if(error == null) {
@@ -50,6 +50,22 @@ exports.getProduct = function(req, res) {
 	}, product);
 };
 
+
+exports.getProducts = function(req, res) {
+	productdb.selectProducts(function(results, error) {
+		if(error == null) {
+			if(results.length > 0) {
+				res.send(results);
+			} else {
+				res.send({error : "No product found!!!"});
+			}
+		} else {
+			// TODO: Need to implement status codes
+			res.status(500).send({error : error});
+		}
+	});
+};
+
 exports.updateProduct = function(req, res) {
 	var product = [];
 	product.productName = req.body[constants.PRODUCT_NAME];
@@ -61,9 +77,9 @@ exports.updateProduct = function(req, res) {
 	product.productExpiryDate = req.body[constants.PRODUCT_EXPIRY_DATE];
 	product.isValid = req.body[constants.IS_VALID];
 	product.categoryId = req.body[constants.CATEGORY_ID];
-	//var date = new Date();
-	//product.lastUpdated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
-	product.lastUpdated = req.body[constants.LAST_UPDATED];
+	var date = new Date();
+	product.lastUpdated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
+	//product.lastUpdated = req.body[constants.LAST_UPDATED];
 	if(product.productName != "") {
 		productdb.editProduct(function(results, error) {
 			if(error == null) {
@@ -86,13 +102,15 @@ exports.updateProduct = function(req, res) {
 exports.removeProduct = function(req, res) {
 	var product = [];
 	product.productId = req.params.productId;
-	productdb.deleteProductById(function(results, error) {
+	var date = new Date();
+	product.lastUpdated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
+	productdb.softDeleteProductById(function(results, error) {
 		if(error == null) {
 			console.log(results);
 			if(results.affectedRows > 0) {
 				res.send();
 			} else {
-				res.send({error : "No product to delete!!!"});
+				res.send({error : "No product to un-list!!!"});
 			}
 		} else {
 			// TODO: Need to implement status codes
