@@ -10,37 +10,31 @@ var expect = require("chai").expect,
  describe('InsertUser',function(){
  	it('should create User', function(done){
  		var member=[];
- 			member.firstName='Tarun';
- 			member.lastName= 'joshi';
- 			member.email= 'tarunjoshi2604@gmail.com';
- 			member.mobile = '4084293020';
- 			console.log("----Test 3:Create User----\n"); 
+ 			member.firstName='Richard';
+ 			member.lastName= 'Sin';
+ 			member.email= 'richard.sin@sjsu.edu';
+ 			member.mobile = '8585555858';
+ 			console.log("----Test 1:Create User----\n"); 
  		user.insertUser(function(results,err){
  			if (err) return done(err);
- 			console.log(results+"\n");
+ 			console.log("UserId of user inserted:: "+results.insertId+"\n");
  	       	 done();
- 	    	console.log("----End of Test3----");
+ 	    	console.log("----End of Test1----");
  		},member);
  		 
  	})
  });
  
- describe('UserDbSelectByEmailId', function(){
+ describe('checkUserByEmail', function(){
 	   it('should exist', function(done){
-	      //var req = {body:{}{}};
-	     // var userId="4";
-		   var member=[];
-		  member.email = "tarunjoshi2603@gmail.com";
-	   // var movieId = "4"
-	     /* var results = user.selectRole(userId);*/
-		/*   var results = user.checkUserByEmail();
-	      expect(results).to.have.a.property("ROLE_ID","USER");
-	      console.log(results);
-	      console.log("----Test 2:Select user details----\n");*/
+		  var member=[];
+		  member.email = "john.gash@sjsu.edu";
+		 
+	      console.log("----Test 2:Check User By EmailId----\n");
 	      user.checkUserByEmail(function(results,err) {
 	    	  if (err) return done(err);
-	    	  console.log(results+"\n");
-	    	  expect(results[0]).to.have.a.property("userId",36);
+	    	  expect(results[0]).to.have.a.property("userId",50);
+	    	 
 	    	  done();
 	    	  console.log("----End of Test2----");
 	      },member);
@@ -49,53 +43,43 @@ var expect = require("chai").expect,
 	 
 	});
  
- describe('SelectUserByEmail', function(){
-	   it('should exist', function(done){
-	      //var req = {body:{}{}};
-	     // var userId="4";
-		   var member=[];
-		  member.email = "tarunjoshi2603@gmail.com";
-	   // var movieId = "4"
-	     /* var results = user.selectRole(userId);*/
-		/*   var results = user.checkUserByEmail();
-	      expect(results).to.have.a.property("ROLE_ID","USER");
-	      console.log(results);
-	      console.log("----Test 2:Select user details----\n");*/
-	      user.selectUserByEmail(function(results,err) {
-	    	  if (err) return done(err);
-	    	  console.log(results+"\n");
-	    	  expect(results[0]).to.have.a.property("userId",36);
-	    	  done();
-	    	  console.log("----End of Test2----");
-	      },member);
-	     
-	     })
+	 describe('selectUserByEmail', function(){
+		   it('should exist', function(done){
+			  var member=[];
+			  member.email = "richard.sin@sjsu.edu";
+			 
+		      console.log("----Test 3:Check User By EmailId----\n");
+		      user.selectUserByEmail(function(results,err) {
+		    	  if (err) return done(err);
+		    	  console.log(JSON.stringify(results));
+		    	  expect(results[0]).to.have.a.property("emaild",member.email);
+		    	  done();
+		    	  console.log("----End of Test3----");
+		      },member);
+		     
+		     })
+		 
+		});
 	 
-	});
- 
- 
- describe('SelectUserByEmail', function(){
-	   it('should exist', function(done){
-	      //var req = {body:{}{}};
-	     // var userId="4";
-		   var member=[];
-		  member.userId = "36";
-	   // var movieId = "4"
-	     /* var results = user.selectRole(userId);*/
-		/*   var results = user.checkUserByEmail();
-	      expect(results).to.have.a.property("ROLE_ID","USER");
-	      console.log(results);
-	      console.log("----Test 2:Select user details----\n");*/
-	      user.selectUserById(function(results,err) {
-	    	  if (err) return done(err);
-	    	  console.log(results+"\n");
-	    	  expect(results[0]).to.have.a.property("firstName","Tarun");
-	    	  done();
-	    	  console.log("----End of Test2----");
-	      },member);
-	     
-	     })
-	 
-	});
- 
+	 describe('selectUserById', function(){
+		   it('should exist', function(done){
+			  var member=[];
+			  member.userId = 38;
+			 
+		      console.log("----Test 4:Select User By UserId----\n");
+		      user.selectUserById(function(results,err) {
+		    	  if (err) return done(err);
+		    	  console.log("First Name:: "+results[0].firstName+"\n");
+		    	  console.log("Last Name:: "+results[0].lastName+"\n");
+		    	  console.log("Email Id:: "+results[0].emaild+"\n");
+		    	  console.log("Mobile:: "+results[0].mobile+"\n");
+		    	  console.log(results+"\n");
+		    	  expect(results[0]).to.have.a.property("userId",member.userId);
+		    	  done();
+		    	  console.log("----End of Test4----");
+		      },member);
+		     
+		     })
+		 
+		});
  
