@@ -14,9 +14,8 @@ exports.createOffer = function(req, res) {
 	offer.buyerStatus = req.body[constants.BUYER_STATUS];
 	offer.sellerStatus = req.body[constants.SELLER_STATUS];
 	offer.offerExpiry = req.body[constants.OFFER_EXPIRY];
-	offer.productId = req.body[constants.PRODUCT_ID];
+	offer.productId = req.params.productId;
 	offer.buyerId = req.body[constants.BUYER_ID];
-	offer.comments = req.body[constants.COMMENTS];
 	//offer.lastModified = req.body[costants.LAST_MODIFIED];
 	var date = new Date();
 	offer.lastModified = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
@@ -25,8 +24,15 @@ exports.createOffer = function(req, res) {
 		offerdb.insertOffer(function(results, error) {
 			if(error === null) {
 				offer.offerId = results.insertId;
-				//console.log(user);
-				res.send({offerId: offer.offerId, buyingQty: offer.buyingQty, offeredDetails: offer.offeredDetails, buyerStatus: offer.buyerStatus, sellerStatus: offer.sellerStatus, offerExpiry: offer.offerExpiry, productId: offer.productId, buyerId: offer.buyerId, comments: offer.comments, lastModified:offer.lastModified});
+				commentdb.selectCommentByOfferId(function(results1, error) {
+					if(error == null) {
+						offer.comments = results1;
+						//console.log(user);
+						res.send({offerId: offer.offerId, buyingQty: offer.buyingQty, offeredDetails: offer.offeredDetails, buyerStatus: offer.buyerStatus, sellerStatus: offer.sellerStatus, offerExpiry: offer.offerExpiry, productId: offer.productId, buyerId: offer.buyerId, comments: offer.comments, lastModified:offer.lastModified});
+					} else {
+						res.send({error: error});
+					}
+				},offer);
 			} else {
 				res.send({error: error});
 			}
@@ -94,6 +100,8 @@ exports.updateOffer = function(req, res) {
 							res.send({error: error});
 						}
 					}, offer);
+				} else {
+					res.send({error: error});
 				}
 			}
 			
@@ -166,7 +174,7 @@ exports.getOffers = function(req, res) {
 				}, offer);*/
 				res.send({offers: results});
 			} else {
-				res.send({error : "No offers found!!!"});
+				res.send({msg : "No offers found!!!"});
 			}
 		} else {
 			// TODO: Need to implement status codes
@@ -175,3 +183,30 @@ exports.getOffers = function(req, res) {
 	}, offer);
 };
 
+
+exports.getOfferHistories = function(req, res) {
+	var offer = [];
+	var jsonOffer = "";
+	offer.offerId = req.params.offerId;
+	
+	offerHistorydb.selectOfferHistories(function(results, error) {
+		if(error == null) {
+			if(results.length > 0) {
+				
+				/*commentdb.selectCommentByOfferId(function(results1, error) {
+					if(error == null) {
+						off.comments = results1;
+						jsonOffer = JSON.stringify(off);
+						res.send(jsonOffer);
+					}
+				}, offer);*/
+				res.send({offers: results});
+			} else {
+				res.send({msg : "No offer history found!!!"});
+			}
+		} else {
+			// TODO: Need to implement status codes
+			res.status(500).send({error : error});
+		}
+	}, offer);
+};

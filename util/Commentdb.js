@@ -5,7 +5,7 @@ var mysql = require('./MySQLConnection');
 
 function insertComment(callback,comment) {
 	var connection = mysql.createdbConnection();
-	connection.query("INSERT INTO comment (commentDesc, userId, offerId, lastUpdated) VALUES(?, ?, ?, ?)",[comment.comment, comment.userId, comment.offerId, comment.lastUpdated], function(error, results) {
+	connection.query("INSERT INTO comment (commentDesc, userId, offerId, lastUpdated) VALUES(?, ?, ?, ?)",[comment.commentDesc, comment.userId, comment.offerId, comment.lastUpdated], function(error, results) {
 		if(!error) {
 			if(results.length !== 0) {
 				console.log("Comment details inserted");

@@ -13,7 +13,7 @@ var offer = require('./routes/Offer');
 var http = require('http');
 var path = require('path');
 var mysql = require("./util/MySQLConnection");
-//mysql.createdbConnectionPool();
+mysql.createdbConnectionPool();
 var app = express();
 
 // all environments
@@ -55,6 +55,8 @@ app.get('/category/:categoryId/product/:productId/offer', offer.getOffers);
 app.get('/category/:categoryId/product/:productId/offer/:offerId', offer.getOffer);
 app.put('/category/:categoryId/product/:productId/offer/:offerId', offer.updateOffer);
 app.delete('/category/:categoryId/product/:productId/offer/:offerId', offer.removeOffer);
+
+app.get('/category/:categoryId/product/:productId/offer/:offerId/history', offer.getOfferHistories);
 
 app.post('/category/:categoryId/product/:productId/offer/:offerId/comment', comment.createComment);
 

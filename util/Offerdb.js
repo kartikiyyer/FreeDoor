@@ -40,7 +40,7 @@ exports.editOffer = editOffer;
 
 function selectOfferById(callback, offer) {
 	var connection = mysql.createdbConnection();
-	connection.query("SELECT offerId, buyingQty, offeredDetails, buyerStatus, sellerStatus, offerExpiry, productId, buyerId, lastModified FROM offer WHERE offerId  = ?",[offer.offerId], function(error, results) {
+	connection.query("SELECT offerId, buyingQty, offeredDetails, buyerStatus, sellerStatus, offerExpiry, offer.productId, buyerId, lastModified FROM offer INNER JOIN product ON product.productId = offer.productId WHERE isValid = 1 AND offer.offerId  = ?",[offer.offerId], function(error, results) {
 		if(!error) {
 			//console.log(results);
 			if(results.length !== 0) {
@@ -59,7 +59,7 @@ exports.selectOfferById = selectOfferById;
 
 function selectOffers(callback, offer) {
 	var connection = mysql.createdbConnection();
-	connection.query("SELECT * FROM offer", function(error, results) {
+	connection.query("SELECT * FROM offer INNER JOIN product ON product.productId = offer.productId WHERE isValid = 1", function(error, results) {
 		if(!error) {
 			//console.log(results);
 			if(results.length !== 0) {

@@ -47,7 +47,7 @@ exports.getUser = function(req, res) {
 	var user = [];
 	user.userId = req.params.userId;
 	
-	if(userId !== "") {
+	if(user.userId !== "") {
 		userdb.selectUserById(function(results, error) {
 			if(error === null) {
 				if(results.length > 0) {

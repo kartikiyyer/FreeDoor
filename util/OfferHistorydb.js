@@ -22,14 +22,14 @@ function insertOfferHistory(callback,offerHistory) {
 
 exports.insertOfferHistory = insertOfferHistory;
 
-/*function selectCategories(callback) {
-	var query = "SELECT categoryId, categoryName FROM category";
+function selectOfferHistories(callback, offer) {
+	var query = "SELECT * FROM offer_history WHERE offerId = ?";
 	var connection = mysql.createdbConnection();
-	connection.query(query, function(error, results) {
+	connection.query(query,[offer.offerId], function(error, results) {
 		if(!error) {
 			//console.log(results);
 			if(results.length !== 0) {
-				console.log("Category details selected");
+				console.log("Offer History details selected");
 			}
 		} else {
 			console.log(error);
@@ -39,9 +39,9 @@ exports.insertOfferHistory = insertOfferHistory;
 	mysql.closedbConnection(connection);
 }
 
-exports.selectCategories = selectCategories;
+exports.selectOfferHistories = selectOfferHistories;
 
-
+/*
 function selectCategoryById(callback, category) {
 	var connection = mysql.createdbConnection();
 	connection.query("SELECT categoryId, categoryName FROM category WHERE categoryId  = ?",[category.categoryId], function(error, results) {

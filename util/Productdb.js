@@ -78,7 +78,7 @@ exports.editProduct = editProduct;
 
 function deleteProductById(callback, product) {
 	var connection = mysql.createdbConnection();
-	connection.query("DELETE FROM product WHERE productId  = ?",[product.productId], function(error, results) {
+	connection.query("DELETE FROM product WHERE categoryId = ? AND productId  = ?",[product.categoryId, product.productId], function(error, results) {
 		if(!error) {
 			//console.log(results);
 			if(results.length !== 0) {
@@ -96,7 +96,7 @@ exports.deleteProductById = deleteProductById;
 
 function softDeleteProductById(callback, product) {
 	var connection = mysql.createdbConnection();
-	connection.query("UPDATE product SET isValid = 0 AND lastUpdated = ? WHERE productId  = ?",[product.lastUpdated, product.productId], function(error, results) {
+	connection.query("UPDATE product SET isValid = 0 AND lastUpdated = ? WHERE categoryId = ? AND productId  = ?",[product.lastUpdated, product.categoryId, product.productId], function(error, results) {
 		if(!error) {
 			//console.log(results);
 			if(results.length !== 0) {

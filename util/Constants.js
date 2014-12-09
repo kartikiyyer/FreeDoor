@@ -8,6 +8,7 @@ exports.USER = "root";
 exports.PASSWORD = "mysql";
 exports.PORT = "3306";
 exports.DATABASE = "freedoor";
+exports.CONNECTION_COUNT = 200;
 
 // Request / Response parameter constants
 exports.FIRST_NAME = "firstName";

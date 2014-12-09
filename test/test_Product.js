@@ -3,7 +3,7 @@
  */
 var expect = require("chai").expect,
 product = require('../util/Productdb');
-/*
+
 describe('InsertProduct',function(){
 	it('should create Product', function(done){
 		var prod=[];
@@ -72,7 +72,7 @@ describe('selectProducts', function(){
 	})
 
 });
-*/
+
 describe('editProduct', function(){
 	it('should exist', function(done){
 
@@ -104,6 +104,7 @@ describe('deleteProductById', function(){
 
 		var prod=[];
 		prod.productId=8;
+		prod.categoryId=3;
 		console.log("----Test 5: Delete Product by Id----\n");
 		product.deleteProductById(function(results,err) {
 			if (err) return done(err);

@@ -5,7 +5,7 @@
 var constants = require('./Constants');
 
 var enableConnectionPool = false;
-//var enableConnectionPool = true;
+var enableConnectionPool = true;
 
 function createdbConnection() {
 	if(enableConnectionPool) {
@@ -88,7 +88,7 @@ function createdbConnectionThread() {
 function createdbConnectionPool() {
 	if(enableConnectionPool) {
 		console.log("Creating connection pool");
-		for(var i=0;i<200;i++) {
+		for(var i=0;i<constants.CONNECTION_COUNT;i++) {
 			queue[i] = createdbConnectionThread();
 		}
 		return queue;

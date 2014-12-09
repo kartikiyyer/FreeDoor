@@ -16,7 +16,7 @@ var expect = require("chai").expect,
 offer = require('../util/Offerdb');
 offerHistorydb = require('../util/OfferHistorydb');
 
-/*describe('insertOffer',function(){
+describe('insertOffer',function(){
 	it('should create Offer', function(done){
 		var ofr=[];
 		ofr.buyingQty = 1;
@@ -40,7 +40,7 @@ offerHistorydb = require('../util/OfferHistorydb');
 		},ofr);
 
 	})
-});*/
+});
 
 describe('editOffer',function(){
 	it('should edit Offer', function(done){
@@ -108,7 +108,7 @@ describe('editOffer',function(){
 });
 
 
-/*
+
 describe('selectOfferById',function(){
 	it('shows offer for a specific Id', function(done){
 		var ofr=[];
@@ -140,7 +140,7 @@ describe('selectOffers',function(){
 
 	})
 });
-*/
+
 describe('deleteOfferById', function(){
 	it('should exist', function(done){
 
