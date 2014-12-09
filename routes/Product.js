@@ -13,7 +13,7 @@ exports.createProduct = function(req, res) {
 	product.productDesc = req.body[constants.PRODUCT_DESC];
 	product.productExpiryDate = req.body[constants.PRODUCT_EXPIRY_DATE];
 	product.isValid = req.body[constants.IS_VALID];
-	product.categoryId = req.body[constants.CATEGORY_ID];
+	product.categoryId = req.params.categoryId;
 	var date = new Date();
 	product.lastUpdated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
 	//product.lastUpdated = req.body[constants.LAST_UPDATED];
@@ -57,7 +57,7 @@ exports.getProducts = function(req, res) {
 			if(results.length > 0) {
 				res.send(results);
 			} else {
-				res.send({error : "No product found!!!"});
+				res.send({msg : "No product found!!!"});
 			}
 		} else {
 			// TODO: Need to implement status codes
@@ -76,7 +76,7 @@ exports.updateProduct = function(req, res) {
 	product.productDesc = req.body[constants.PRODUCT_DESC];
 	product.productExpiryDate = req.body[constants.PRODUCT_EXPIRY_DATE];
 	product.isValid = req.body[constants.IS_VALID];
-	product.categoryId = req.body[constants.CATEGORY_ID];
+	product.categoryId = req.params.categoryId;
 	var date = new Date();
 	product.lastUpdated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
 	//product.lastUpdated = req.body[constants.LAST_UPDATED];
@@ -102,6 +102,7 @@ exports.updateProduct = function(req, res) {
 exports.removeProduct = function(req, res) {
 	var product = [];
 	product.productId = req.params.productId;
+	product.categoryId = req.params.categoryId
 	var date = new Date();
 	product.lastUpdated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
 	productdb.softDeleteProductById(function(results, error) {
